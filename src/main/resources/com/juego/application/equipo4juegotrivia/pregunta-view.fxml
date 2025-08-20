@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.juego.application.equipo4juegotrivia.PreguntaController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <Label fx:id="tiempoLabel" text="Tiempo: 15s" style="-fx-font-size: 16px;"/>
+    <ProgressBar fx:id="tiempoProgress" progress="1.0" prefWidth="300"/>
+    <Label fx:id="preguntaLabel" wrapText="true" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+    <VBox fx:id="opcionesContainer" spacing="10.0" alignment="CENTER" />
+    <Button text="Siguiente" onAction="#siguientePregunta" visible="false" fx:id="siguienteBtn" />
+</VBox>
