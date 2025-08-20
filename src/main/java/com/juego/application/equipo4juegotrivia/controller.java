@@ -3,7 +3,7 @@ package com.juego.application.equipo4juegotrivia;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class MainController {
+public class controller {
     @FXML
     private Label welcomeText;
 
