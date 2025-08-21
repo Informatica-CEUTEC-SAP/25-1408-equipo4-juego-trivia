@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -36,14 +37,21 @@ public class PreguntaController implements Initializable {
     private int puntuacion=0;
     private int respuestasCorrectas=0;
     private int respuestasIncorrectas=0;
-  // Inicializar puntuacion en cero
+    private int totalPreguntas=0;
+
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         inicializarPreguntas();
         actualizarPuntuacion();
         mostrarSiguientePregunta();
+
+
     }
+
     private void actualizarPuntuacion(){
         puntuacionLabel.setText("Puntuacion: " + puntuacion);
     }
@@ -146,7 +154,7 @@ public class PreguntaController implements Initializable {
     }else {
         respuestasIncorrectas++;
     }
-
+    totalPreguntas=preguntas.length;
     actualizarPuntuacion();
 
     }
@@ -157,43 +165,36 @@ public class PreguntaController implements Initializable {
         mostrarSiguientePregunta();
     }
 
-    private void mostrarResultadosFinales(){
-        try{
-            FXMLLoader loader=new FXMLLoader(getClass().getResource("resultados.fxml"));
+    private void mostrarResultadosFinales() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("resultados.fxml"));
             Parent root = loader.load();
 
-            Resultadoscontroller controller = loader.getController();
-            controller.setResultados(puntuacion,respuestasCorrectas,respuestasIncorrectas,preguntas.length);
+            Jugador controller = loader.getController();
+            controller.setResultados(puntuacion, respuestasCorrectas, respuestasIncorrectas, totalPreguntas);
 
             Stage stage = new Stage();
-            stage.setScene(new Scene(root,800,600));
+            stage.setScene(new Scene(root, 800, 600));
             stage.setTitle("Resultados - Trivia Game");
             stage.show();
 
             Stage currentStage = (Stage) preguntaLabel.getScene().getWindow();
             currentStage.close();
-        }catch (Exception e){
+        } catch(Exception e) {
             e.printStackTrace();
             volverAlMenu();
         }
     }
 
-    private void volverAlMenu() {
-        try {
-            Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("view.fxml"));
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root, 800, 600));
-            stage.setTitle("Trivia Game");
-            stage.show();
 
-            Stage currentStage = (Stage) preguntaLabel.getScene().getWindow();
-            currentStage.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        private void volverAlMenu() {
+
+            mostrarResultadosFinales();
         }
+
     }
 
 
-   }
+
 
 
