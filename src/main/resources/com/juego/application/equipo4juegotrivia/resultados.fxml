@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<VBox alignment="CENTER" spacing="20" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <Label text="¡Juego Terminado!" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+    <VBox alignment="CENTER" spacing="10">
+        <Label fx:id="puntuacionFinalLabel" style="-fx-font-size: 20px; -fx-text-fill: #2E7D32;"/>
+        <Label fx:id="respuestasCorrectasLabel" style="-fx-font-size: 16px;"/>
+        <Label fx:id="respuestasIncorrectasLabel" style="-fx-font-size: 16px;"/>
+        <Label fx:id="porcentajeAciertosLabel" style="-fx-font-size: 16px;"/>
+    </VBox>
+
+    <HBox fx:id="estrellasContainer" alignment="CENTER" spacing="10"/>
+
+    <Button fx:id="volverMenuBtn" text="Volver al Menú Principal" style="-fx-font-size: 14px;"/>
+</VBox>

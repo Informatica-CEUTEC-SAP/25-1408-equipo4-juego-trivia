@@ -3,6 +3,7 @@ package com.juego.application.equipo4juegotrivia;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -23,6 +24,7 @@ public class PreguntaController implements Initializable {
     @FXML private Button siguienteBtn;
     @FXML private Label tiempoLabel;
     @FXML private ProgressBar tiempoProgress;
+    @FXML private Label puntuacionLabel;
 
     private Pregunta[] preguntas;
     private int preguntaActual;
@@ -31,10 +33,19 @@ public class PreguntaController implements Initializable {
     private int tiempoRestante;
     // Temporizador de 15 segundos por pregunta
 
+    private int puntuacion=0;
+    private int respuestasCorrectas=0;
+    private int respuestasIncorrectas=0;
+  // Inicializar puntuacion en cero
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         inicializarPreguntas();
+        actualizarPuntuacion();
         mostrarSiguientePregunta();
+    }
+    private void actualizarPuntuacion(){
+        puntuacionLabel.setText("Puntuacion: " + puntuacion);
     }
 
     private void inicializarPreguntas() {
@@ -104,12 +115,67 @@ public class PreguntaController implements Initializable {
         timeline.stop();
         siguienteBtn.setVisible(true);
         // Aqui se puede añadir logica para marcar respuestas correctas/incorrectas
+
+        Pregunta preguntaActualObj= preguntas[preguntaActual];
+        Boolean esCorrecta= (indiceSeleccionado==preguntaActualObj.getRespuestaCorrecta());
+
+        for (int i=0; i<opcionesContainer.getChildren().size();i++){
+            Button boton =(Button) opcionesContainer.getChildren().get(i);
+
+            if (i== preguntaActualObj.getRespuestaCorrecta()){
+                boton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
+                //Se marca la respuesta correcta en verde
+
+            } else if (i==indiceSeleccionado && !esCorrecta) {
+                boton.setStyle("-fx-background-color: #F44336; -fx-text-fill: white;");
+                //Si la respuesta es incorrecta se marca en rojo
+            }else{
+                boton.setStyle("-fx-background-color: #E0E0E0;");
+                //Para opciones se marca gris
+            }
+
+            boton.setDisable (true);
+            //Permite deshabilitar los botones despues de responder
+
+        }
+    if (esCorrecta){
+        int puntosGanados = tiempoRestante*10;
+
+        puntuacion += puntosGanados;
+        respuestasCorrectas++;
+    }else {
+        respuestasIncorrectas++;
+    }
+
+    actualizarPuntuacion();
+
     }
 
     @FXML
     private void siguientePregunta() {
         preguntaActual++;
         mostrarSiguientePregunta();
+    }
+
+    private void mostrarResultadosFinales(){
+        try{
+            FXMLLoader loader=new FXMLLoader(getClass().getResource("resultados.fxml"));
+            Parent root = loader.load();
+
+            Resultadoscontroller controller = loader.getController();
+            controller.setResultados(puntuacion,respuestasCorrectas,respuestasIncorrectas,preguntas.length);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root,800,600));
+            stage.setTitle("Resultados - Trivia Game");
+            stage.show();
+
+            Stage currentStage = (Stage) preguntaLabel.getScene().getWindow();
+            currentStage.close();
+        }catch (Exception e){
+            e.printStackTrace();
+            volverAlMenu();
+        }
     }
 
     private void volverAlMenu() {
@@ -126,4 +192,8 @@ public class PreguntaController implements Initializable {
             e.printStackTrace();
         }
     }
-}
+
+
+   }
+
+
