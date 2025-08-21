@@ -23,7 +23,7 @@ public class controller {
             stage.setTitle("Juego de Trivia");
             stage.show();
 
-            // Cerrar el menú actual - FORMA CORRECTA
+            // Cerrar el menu actual - FORMA CORRECTA
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             currentStage.close();
         } catch (IOException e) {

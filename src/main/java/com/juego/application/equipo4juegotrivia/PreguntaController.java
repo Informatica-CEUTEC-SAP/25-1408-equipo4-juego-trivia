@@ -29,6 +29,7 @@ public class PreguntaController implements Initializable {
     private Timeline timeline;
     private final int TIEMPO_POR_PREGUNTA = 15;
     private int tiempoRestante;
+    // Temporizador de 15 segundos por pregunta
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -54,7 +55,7 @@ public class PreguntaController implements Initializable {
 
     private void mostrarSiguientePregunta() {
         if (preguntaActual >= preguntas.length) {
-            // No hay más preguntas, volver al menú
+            // No hay mas preguntas, volver al menu
             volverAlMenu();
             return;
         }
@@ -102,7 +103,7 @@ public class PreguntaController implements Initializable {
     private void verificarRespuesta(int indiceSeleccionado) {
         timeline.stop();
         siguienteBtn.setVisible(true);
-        // Aquí se puede añadir lógica para marcar respuestas correctas/incorrectas
+        // Aqui se puede añadir logica para marcar respuestas correctas/incorrectas
     }
 
     @FXML
