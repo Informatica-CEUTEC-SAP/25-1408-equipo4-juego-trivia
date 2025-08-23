@@ -3,6 +3,7 @@ package com.juego.application.equipo4juegotrivia;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,6 +13,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,6 +25,7 @@ public class PreguntaController implements Initializable {
     @FXML private Button siguienteBtn;
     @FXML private Label tiempoLabel;
     @FXML private ProgressBar tiempoProgress;
+    @FXML private Label puntuacionLabel;
 
     private Pregunta[] preguntas;
     private int preguntaActual;
@@ -31,10 +34,26 @@ public class PreguntaController implements Initializable {
     private int tiempoRestante;
     // Temporizador de 15 segundos por pregunta
 
+    private int puntuacion=0;
+    private int respuestasCorrectas=0;
+    private int respuestasIncorrectas=0;
+    private int totalPreguntas=0;
+
+
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         inicializarPreguntas();
+        actualizarPuntuacion();
         mostrarSiguientePregunta();
+
+
+    }
+
+    private void actualizarPuntuacion(){
+        puntuacionLabel.setText("Puntuacion: " + puntuacion);
     }
 
     private void inicializarPreguntas() {
@@ -104,6 +123,40 @@ public class PreguntaController implements Initializable {
         timeline.stop();
         siguienteBtn.setVisible(true);
         // Aqui se puede añadir logica para marcar respuestas correctas/incorrectas
+
+        Pregunta preguntaActualObj= preguntas[preguntaActual];
+        Boolean esCorrecta= (indiceSeleccionado==preguntaActualObj.getRespuestaCorrecta());
+
+        for (int i=0; i<opcionesContainer.getChildren().size();i++){
+            Button boton =(Button) opcionesContainer.getChildren().get(i);
+
+            if (i== preguntaActualObj.getRespuestaCorrecta()){
+                boton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
+                //Se marca la respuesta correcta en verde
+
+            } else if (i==indiceSeleccionado && !esCorrecta) {
+                boton.setStyle("-fx-background-color: #F44336; -fx-text-fill: white;");
+                //Si la respuesta es incorrecta se marca en rojo
+            }else{
+                boton.setStyle("-fx-background-color: #E0E0E0;");
+                //Para opciones se marca gris
+            }
+
+            boton.setDisable (true);
+            //Permite deshabilitar los botones despues de responder
+
+        }
+    if (esCorrecta){
+        int puntosGanados = tiempoRestante*10;
+
+        puntuacion += puntosGanados;
+        respuestasCorrectas++;
+    }else {
+        respuestasIncorrectas++;
+    }
+    totalPreguntas=preguntas.length;
+    actualizarPuntuacion();
+
     }
 
     @FXML
@@ -112,18 +165,36 @@ public class PreguntaController implements Initializable {
         mostrarSiguientePregunta();
     }
 
-    private void volverAlMenu() {
+    private void mostrarResultadosFinales() {
         try {
-            Parent root = javafx.fxml.FXMLLoader.load(getClass().getResource("view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("resultados.fxml"));
+            Parent root = loader.load();
+
+            Jugador controller = loader.getController();
+            controller.setResultados(puntuacion, respuestasCorrectas, respuestasIncorrectas, totalPreguntas);
+
             Stage stage = new Stage();
             stage.setScene(new Scene(root, 800, 600));
-            stage.setTitle("Trivia Game");
+            stage.setTitle("Resultados - Trivia Game");
             stage.show();
 
             Stage currentStage = (Stage) preguntaLabel.getScene().getWindow();
             currentStage.close();
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
+            volverAlMenu();
         }
     }
-}
+
+
+        private void volverAlMenu() {
+
+            mostrarResultadosFinales();
+        }
+
+    }
+
+
+
+
+

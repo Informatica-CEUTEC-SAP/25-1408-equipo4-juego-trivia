@@ -15,4 +15,5 @@
     <Label fx:id="preguntaLabel" wrapText="true" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
     <VBox fx:id="opcionesContainer" spacing="10.0" alignment="CENTER" />
     <Button text="Siguiente" onAction="#siguientePregunta" visible="false" fx:id="siguienteBtn" />
+    <Label fx:id="puntuacionLabel" text="Puntuación: 0" style="-fx-font-size: 16px; -fx-text-fill: #1976D2;"/>
 </VBox>
