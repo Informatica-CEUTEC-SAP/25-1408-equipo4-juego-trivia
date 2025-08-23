@@ -18,7 +18,6 @@ public class Jugador implements Initializable {
     @FXML private Label respuestasCorrectasLabel;
     @FXML private Label respuestasIncorrectasLabel;
     @FXML private Label porcentajeAciertosLabel;
-    @FXML private VBox estrellasContainer;
     @FXML private Button volverMenuBtn;
 
     private int puntuacion;
