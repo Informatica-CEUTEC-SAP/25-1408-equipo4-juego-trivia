@@ -5,18 +5,30 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="600.0" prefWidth="800.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.juego.application.equipo4juegotrivia.Jugador">
+<VBox alignment="CENTER" prefHeight="600.0" prefWidth="800.0" spacing="20.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.juego.application.equipo4juegotrivia.Jugador">
     <children>
-        <Label text="Resultados Finales" style="-fx-font-weight: bold;">
+        <Label style="-fx-font-weight: bold;" text="Resultados Finales">
             <font>
                 <Font size="24.0" />
             </font>
         </Label>
 
-        <Label fx:id="puntuacionFinalLabel" text="Puntuación Final: 0" />
-        <Label fx:id="respuestasCorrectasLabel" text="Respuestas Correctas: 0/0" />
-        <Label fx:id="respuestasIncorrectasLabel" text="Respuestas Incorrectas: 0/0" /> <!-- ✅ Cambiado para mostrar /total -->
-        <Label fx:id="porcentajeAciertosLabel" text="Porcentaje de aciertos: 0%" />
+        <Label fx:id="puntuacionFinalLabel" style="-fx-background-color: blue;" text="Puntuación Final: 0" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+        <Label fx:id="respuestasCorrectasLabel" style="-fx-background-color: green;" text="Respuestas Correctas: 0/0" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+        <Label fx:id="respuestasIncorrectasLabel" style="-fx-background-color: red;" text="Respuestas Incorrectas: 0/0" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label> <!-- ✅ Cambiado para mostrar /total -->
+        <Label fx:id="porcentajeAciertosLabel" style="-fx-background-color: blue;" text="Porcentaje de Aciertos: 0%" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
 
 
 

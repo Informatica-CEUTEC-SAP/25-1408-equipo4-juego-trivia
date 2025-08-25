@@ -12,7 +12,7 @@ public class model extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("view.fxml")));
-        stage.setTitle("Trivia Game");
+        stage.setTitle("¡Trivia Game!");
         stage.setScene(new Scene(root, 800, 600));
         stage.show();
     }
